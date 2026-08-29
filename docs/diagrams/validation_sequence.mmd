@@ -1,0 +1,23 @@
+sequenceDiagram
+    participant E as engine.compute_results
+    participant S as sensitivities/sbm/sa
+    participant I as ima/plat
+    participant V as validation
+
+    E->>S: compute_sensitivities(desk, market, params)
+    S-->>E: Sensitivities (per desk, then firm)
+    E->>S: sbm_capital / drc_charge / rrao_charge
+    S-->>E: SaScope per desk + firm
+    E->>I: es_base_10d / es_lh_scaled / imcc (per desk)
+    E->>I: backtest(pnl, var99), plat_test(hypo, rtpl), ses(nmrf)
+    I-->>E: BacktestResult, PlatResult, SES
+    E->>I: plat_surcharge(zone, SA_desk, IMA_core)
+    E->>V: benchmark_max_diff (BS vs binomial 501)
+    E->>V: sensitivity_max_diff (delta vs central FD)
+    E->>S: sbm_capital with GIRR RW x1.1 / x0.9
+    S-->>E: perturbed capitals (stability)
+    E->>V: data_quality(pnl) per desk
+    E->>V: classify_findings(DeskCheckInputs) per desk
+    V-->>E: Findings + overall_verdict
+    E->>V: render_report(results)
+    V-->>E: validation_report.md (10 sections)

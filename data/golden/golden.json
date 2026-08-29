@@ -1,0 +1,241 @@
+{
+  "cases": [
+    {
+      "name": "sbm_agg_hand_2bucket",
+      "inputs": {
+        "ws_a1": 10.0,
+        "ws_a2": -5.0,
+        "rho_a": 0.5,
+        "ws_b1": 8.0,
+        "gamma": 0.25
+      },
+      "expect": {
+        "k_a": 8.660254037844387,
+        "k_b": 8.0,
+        "total": 12.609520212918492
+      },
+      "tol": 1e-12
+    },
+    {
+      "name": "girr_ws_rates_desk",
+      "inputs": {
+        "desk": "desk1",
+        "currency": "USD"
+      },
+      "expect": {
+        "ws_0.25": 0.0,
+        "ws_0.5": 0.0,
+        "ws_1": -2171.5167063474655,
+        "ws_2": -149877.9478458315,
+        "ws_3": -1075.4396483302116,
+        "ws_5": -433629.01917248964,
+        "ws_10": 993592.3364721239,
+        "ws_15": 0.0,
+        "ws_20": 0.0,
+        "ws_30": 0.0
+      },
+      "tol": 1e-08
+    },
+    {
+      "name": "girr_kb_usd",
+      "inputs": {
+        "scope": "firm",
+        "scenario": "medium"
+      },
+      "expect": {
+        "kb": 413453.9738180512
+      },
+      "tol": 1e-08
+    },
+    {
+      "name": "equity_kb_bucket1",
+      "inputs": {
+        "scope": "firm",
+        "scenario": "medium"
+      },
+      "expect": {
+        "kb": 1397992.52813939
+      },
+      "tol": 1e-08
+    },
+    {
+      "name": "sbm_firm_scenarios",
+      "inputs": {
+        "scope": "firm"
+      },
+      "expect": {
+        "high": 4838909.109575208,
+        "medium": 4947340.707995068,
+        "low": 5310401.787145989,
+        "capital": 5310401.787145989
+      },
+      "tol": 1e-08
+    },
+    {
+      "name": "sbm_desk_capitals",
+      "inputs": {},
+      "expect": {
+        "desk1": 787515.0324652188,
+        "desk2": 4841610.00602205
+      },
+      "tol": 1e-08
+    },
+    {
+      "name": "curvature_equity_desk2",
+      "inputs": {
+        "desk": "desk2",
+        "scenario": "medium"
+      },
+      "expect": {
+        "charge": 188052.63796876604
+      },
+      "tol": 1e-08
+    },
+    {
+      "name": "drc_firm",
+      "inputs": {
+        "scope": "firm"
+      },
+      "expect": {
+        "charge": 1143706.6695381831,
+        "hbr": 1.0
+      },
+      "tol": 1e-10
+    },
+    {
+      "name": "rrao_firm",
+      "inputs": {
+        "scope": "firm"
+      },
+      "expect": {
+        "charge": 103000.0
+      },
+      "tol": 1e-12
+    },
+    {
+      "name": "es_desk1",
+      "inputs": {
+        "desk": "desk1"
+      },
+      "expect": {
+        "es_base": 334293.420088047,
+        "es_lh": 472762.2885006025
+      },
+      "tol": 1e-08
+    },
+    {
+      "name": "es_desk2",
+      "inputs": {
+        "desk": "desk2"
+      },
+      "expect": {
+        "es_base": 381042.5949915246,
+        "es_lh": 612536.7651917221
+      },
+      "tol": 1e-08
+    },
+    {
+      "name": "imcc_desks",
+      "inputs": {},
+      "expect": {
+        "desk1": 472762.2885006025,
+        "desk2": 827462.7784604847
+      },
+      "tol": 1e-08
+    },
+    {
+      "name": "plat_desk1",
+      "inputs": {
+        "desk": "desk1"
+      },
+      "expect": {
+        "spearman": 0.9948670155566707,
+        "ks": 0.0346153846153846,
+        "zone": "green"
+      },
+      "tol": 1e-08
+    },
+    {
+      "name": "plat_desk2",
+      "inputs": {
+        "desk": "desk2"
+      },
+      "expect": {
+        "spearman": 0.8433982296051261,
+        "ks": 0.07307692307692315,
+        "zone": "amber"
+      },
+      "tol": 1e-08
+    },
+    {
+      "name": "backtest_desk1",
+      "inputs": {
+        "desk": "desk1"
+      },
+      "expect": {
+        "exceptions": 2,
+        "multiplier": 1.5
+      },
+      "tol": 1e-12
+    },
+    {
+      "name": "backtest_desk2",
+      "inputs": {
+        "desk": "desk2"
+      },
+      "expect": {
+        "exceptions": 5,
+        "multiplier": 1.7
+      },
+      "tol": 1e-12
+    },
+    {
+      "name": "ses_firm",
+      "inputs": {},
+      "expect": {
+        "charge": 155000.0
+      },
+      "tol": 1e-10
+    },
+    {
+      "name": "benchmark_max_diff",
+      "inputs": {
+        "steps": 501
+      },
+      "expect": {
+        "value": 0.005162538954332163
+      },
+      "tol": 1e-08
+    },
+    {
+      "name": "stability_girr_rw_up10",
+      "inputs": {
+        "scope": "firm"
+      },
+      "expect": {
+        "delta_capital": 67904.3277584035
+      },
+      "tol": 1e-08
+    },
+    {
+      "name": "verdict_desk1",
+      "inputs": {
+        "desk": "desk1"
+      },
+      "expect": {
+        "verdict": "approve"
+      },
+      "tol": 0.0
+    },
+    {
+      "name": "verdict_desk2",
+      "inputs": {
+        "desk": "desk2"
+      },
+      "expect": {
+        "verdict": "approve-with-conditions"
+      },
+      "tol": 0.0
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+flowchart TB
+    subgraph DATA["data/ (deterministic, seed 20250815 at authoring time only)"]
+        PJ[portfolio.json]
+        SP[sbm_params.json]
+        CC[curves.csv / spots.csv]
+        PH[pnl_hypo.csv]
+        PR[pnl_rtpl.csv]
+        PV[pnl_var.csv]
+        NM[nmrf.json]
+    end
+
+    PJ --> INST[instruments.load_portfolio]
+    CC --> MKT[market.load_market]
+    SP --> PAR[params.load_params]
+
+    INST --> SENS["sensitivities.compute_sensitivities\n(bump-and-revalue: GIRR +1bp,\nequity/FX +1%, vol +1pt, full-RW shocks)"]
+    MKT --> SENS
+    PAR --> SENS
+    MKT --> PRC["pricers: bond / swap proxy /\nBlack-Scholes / FX forward"]
+    PRC --> SENS
+
+    SENS --> SBM["sbm + sa.sbm_capital\nWS = RW*s; K_b; gamma/S_b fallback;\n3 scenarios; curvature CVR+/- with psi"]
+    INST --> DRC["sa.drc_charge\nJTD netting, HBR, rating RWs"]
+    INST --> RRAO["sa.rrao_charge\nflagged notionals x pinned rates"]
+    SBM --> SA["SA capital = SBM + DRC + RRAO\n(per desk and firm)"]
+    DRC --> SA
+    RRAO --> SA
+
+    PH --> ES["ima: ES 97.5 daily -> sqrt(10) -> LH ladder"]
+    ES --> IMCC["IMCC = 0.5*ES_full + 0.5*sum ES_cat"]
+    PV --> BT["ima.backtest: exceptions -> zone -> multiplier"]
+    PH --> BT
+    PH --> PLAT["plat: Spearman + KS -> zone"]
+    PR --> PLAT
+    NM --> SES["ima.ses: sum stressed losses"]
+    IMCC --> IMA["IMA capital = mult*IMCC + SES\n+ amber surcharge 0.5*max(0, SA - core)"]
+    BT --> IMA
+    SES --> IMA
+    PLAT --> IMA
+    SA --> IMA
+
+    SA --> VAL["validation: benchmark (binomial 501),\ndelta vs FD, +/-10% RW stability,\ndata quality, findings rules"]
+    BT --> VAL
+    PLAT --> VAL
+    PH --> VAL
+    VAL --> REP["render_report ->\nvalidation_report.md\nverdict per desk"]

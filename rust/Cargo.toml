@@ -1,0 +1,9 @@
+[package]
+name = "frtb"
+version = "1.0.0"
+edition = "2021"
+description = "Educational FRTB kit: SBM/DRC/RRAO (standardised approach), IMA sketch (ES/IMCC, PLAT, backtesting, SES) and an independent model-validation framework"
+license = "MIT"
+
+[dependencies]
+serde_json = "1"

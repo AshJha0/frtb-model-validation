@@ -1,0 +1,5 @@
+kind,name,spot,vol,div_yield,eq_bucket
+equity,AAA_TECH,100.0,0.25,0.01,1
+equity,EURO_BANK,48.0,0.3,0.03,3
+equity,GLOBAL_INDEX,250.0,0.18,0.02,11
+fx,EURUSD,1.085,0.0,0.0,

@@ -1,0 +1,73 @@
+classDiagram
+    class Market {
+        curves: Dict~str, Curve~
+        equities: Dict~str, EquityQuote~
+        fx: Dict~str, float~
+        bump_curve_node(ccy, tenor, size) Market
+        bump_curve_parallel(ccy, size) Market
+        bump_equity_spot(name, rel) Market
+        bump_equity_vol(name, size) Market
+        bump_fx(pair, rel) Market
+    }
+    class Curve {
+        tenors, rates
+        rate(t) float
+        df(t) float
+        bumped_node(tenor, size) Curve
+        bumped_parallel(size) Curve
+    }
+    class SbmParams {
+        girr_tenors, girr_delta_rw, girr_rho
+        equity_buckets, fx_*, scenarios
+        drc_rw_by_rating, rrao_rates
+        ima_*, plat_*
+        girr_rw(tenor) float
+        equity_bucket(b) EquityBucketParams
+        drc_rw(rating) float
+        with_girr_delta_rw_scaled(f) SbmParams
+    }
+    class Desk {
+        name, display
+        instruments: Tuple~Instrument~
+    }
+    class Instrument {
+        <<union>>
+        Bond | PayerSwap | EquityOption | FxForward
+    }
+    class Sensitivities {
+        girr: ccy to tenor to dV_dr
+        equity_delta, equity_vega, fx_delta
+        girr_cvr, equity_cvr, fx_cvr : CVR up/down pairs
+    }
+    class SbmResult {
+        charges[rc][measure][scenario]
+        kb_medium[rc][measure][bucket]
+        scenario_totals
+        capital
+    }
+    class DrcResult {
+        charge, hbr
+        net_jtd, gross_long, gross_short
+    }
+    class BacktestResult {
+        exceptions, zone, multiplier
+    }
+    class PlatResult {
+        spearman?, ks?, zone
+    }
+    class Finding {
+        rule_id, severity, description
+    }
+
+    Market *-- Curve
+    Desk o-- Instrument
+    Sensitivities ..> Market : bump-and-revalue
+    Sensitivities ..> Instrument
+    Sensitivities ..> SbmParams : bumps + RW shocks
+    SbmResult ..> Sensitivities : sbm_capital()
+    SbmResult ..> SbmParams
+    DrcResult ..> Instrument : bonds only
+    BacktestResult ..> SbmParams : multiplier table
+    PlatResult ..> SbmParams : zone thresholds
+    Finding ..> BacktestResult : rule table
+    Finding ..> PlatResult

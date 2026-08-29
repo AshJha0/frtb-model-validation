@@ -1,0 +1,5 @@
+# Runtime: numpy only (binomial lattice vectorisation). No RNG at runtime.
+numpy>=1.24
+# Tests only: pytest runner + scipy cross-checks of the native Spearman/KS.
+pytest>=7.0
+scipy>=1.10

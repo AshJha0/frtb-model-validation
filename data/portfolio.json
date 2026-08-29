@@ -1,0 +1,121 @@
+{
+  "desks": [
+    {
+      "name": "desk1",
+      "display": "Rates Desk",
+      "instruments": [
+        {
+          "type": "bond",
+          "id": "B1",
+          "notional": 10000000,
+          "coupon": 0.03,
+          "maturity": 5.0,
+          "currency": "USD",
+          "issuer": "UST-PROXY",
+          "rating": "AAA",
+          "lgd": 0.75
+        },
+        {
+          "type": "bond",
+          "id": "B2",
+          "notional": 8000000,
+          "coupon": 0.035,
+          "maturity": 10.0,
+          "currency": "USD",
+          "issuer": "CORP-A",
+          "rating": "A",
+          "lgd": 0.75
+        },
+        {
+          "type": "bond",
+          "id": "B3",
+          "notional": 6000000,
+          "coupon": 0.02,
+          "maturity": 2.0,
+          "currency": "USD",
+          "issuer": "CORP-B",
+          "rating": "BBB",
+          "lgd": 0.75
+        },
+        {
+          "type": "payer_swap",
+          "id": "S1",
+          "notional": 20000000,
+          "fixed_rate": 0.028,
+          "maturity": 10.0,
+          "currency": "USD",
+          "rrao": {
+            "category": "other",
+            "notional": 20000000
+          }
+        }
+      ]
+    },
+    {
+      "name": "desk2",
+      "display": "Equity/FX Desk",
+      "instruments": [
+        {
+          "type": "equity_option",
+          "id": "O1",
+          "underlier": "AAA_TECH",
+          "option_type": "call",
+          "position": 1,
+          "contracts": 50000,
+          "strike": 105.0,
+          "maturity": 1.0,
+          "currency": "USD"
+        },
+        {
+          "type": "equity_option",
+          "id": "O2",
+          "underlier": "EURO_BANK",
+          "option_type": "put",
+          "position": 1,
+          "contracts": 40000,
+          "strike": 45.0,
+          "maturity": 0.5,
+          "currency": "USD"
+        },
+        {
+          "type": "equity_option",
+          "id": "O3",
+          "underlier": "GLOBAL_INDEX",
+          "option_type": "call",
+          "position": -1,
+          "contracts": 30000,
+          "strike": 260.0,
+          "maturity": 0.75,
+          "currency": "USD",
+          "rrao": {
+            "category": "exotic",
+            "notional": 7800000
+          }
+        },
+        {
+          "type": "fx_forward",
+          "id": "F1",
+          "pair": "EURUSD",
+          "notional": 15000000,
+          "strike": 1.1,
+          "maturity": 1.0
+        },
+        {
+          "type": "bond",
+          "id": "HY1",
+          "notional": 5000000,
+          "coupon": 0.07,
+          "maturity": 4.0,
+          "currency": "USD",
+          "issuer": "HY-CORP",
+          "rating": "BB",
+          "lgd": 0.75,
+          "rrao": {
+            "category": "other",
+            "notional": 5000000
+          }
+        }
+      ]
+    }
+  ]
+}
