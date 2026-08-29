@@ -1,4 +1,4 @@
-# P15 — `frtb`: FRTB & Model Validation (Regulatory Capital, Independent Validation)
+#FRTB & Model Validation (Regulatory Capital, Independent Validation)
 
 An educational implementation of the Basel FRTB (Fundamental Review of the
 Trading Book) market-risk capital mechanics in four languages, on a small
